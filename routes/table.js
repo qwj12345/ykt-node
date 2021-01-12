@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var Table = mongoose.model('Table');
 
 
- router.post('/addStudent', function(req, res, next) {
+ router.post('/updateTable', function(req, res, next) {
         var table = new Table({
             studentId: req.body.studentId,
             timetable: {},
