@@ -6,24 +6,31 @@ var Table = mongoose.model('Table');
 
 
  router.post('/updateTable', function(req, res, next) {
-        var table = new Table({
-            studentId: req.body.studentId,
-            timetable: {},
-        })
+        // var table = new Table({
+        //     studentId: req.body.studentId,
+        //     timetable: {
+
+        //     },
+        // })
+        console.log(req.body)
+        try{
+            Table.update({studentId: req.body.studentId},{timetable:JSON.parse(req.body.timetable)},function(err,doc){
+                if(err) {
+                    res.end('Error');
+                    return next();
+                }
+                
+                res.json({
+                 code:200,
+                 msg:"成功",
+                 data:doc
+                });
      
-        table.save(function(err){
-            if(err) {
-                res.end('Error');
-                return next();
-            }
-            
-            res.json({
-             code:200,
-             msg:"成功",
-             data:student
-            });
- 
-        })
+            })
+        }catch(e){
+            console.log('catch',e)
+        }
+
    })
 
    router.get('/findTableByStudent',function(req,res,next){
@@ -33,11 +40,21 @@ var Table = mongoose.model('Table');
                 res.end('Error');
                 
             }
-            res.json({
-                code:200,
-                msg:"成功",
-                data:docs.timetable
-            });
+            console.log(docs)
+            if(docs){
+                res.json({
+                    code:200,
+                    msg:"成功2",
+                    data:docs.timetable
+                });
+            }else{
+                res.json({
+                    code:600,
+                    msg:"查找不到",
+                    data:docs
+                });
+            }
+            
             return next();
         // Student.count({},function(error,count){
            

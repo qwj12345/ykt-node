@@ -22,7 +22,6 @@ var Table = mongoose.model('Table');
                 res.end('Error');
                 return next();
             }
-            console.log(22,docs)
             let table = new Table({
                 studentId:docs._id,
                 timetable: {
