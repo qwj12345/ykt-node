@@ -12,7 +12,7 @@ var Table = mongoose.model('Table');
 
         //     },
         // })
-        console.log(req.body)
+     
         try{
             Table.update({studentId: req.body.studentId},{timetable:JSON.parse(req.body.timetable)},function(err,doc){
                 if(err) {
@@ -40,7 +40,7 @@ var Table = mongoose.model('Table');
                 res.end('Error');
                 
             }
-            console.log(docs)
+           
             if(docs){
                 res.json({
                     code:200,
@@ -55,7 +55,7 @@ var Table = mongoose.model('Table');
                 });
             }
             
-            return next();
+            // return next();
         // Student.count({},function(error,count){
            
         // })

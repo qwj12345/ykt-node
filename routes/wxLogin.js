@@ -46,7 +46,7 @@ router.post("/wxLogin", (req, res, next) => {
                    });
             }
             // console.log(23213)
-            return next();
+            // return next();
 
         })
     }).catch(err => {

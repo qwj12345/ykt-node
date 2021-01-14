@@ -93,28 +93,43 @@ var Table = mongoose.model('Table');
                     msg:"成功",
                     data:docs
                 });
-                return next();
+                // return next();
 
 
         })
    })
    router.get('/findStudentDetail',function(req,res,next){
        
-    Student.find({_id:req.query.id}, function(err, docs) {
-            if(err) {
-                res.end('Error');
-                
-            }
-            res.json({
-                code:200,
-                msg:"成功",
-                data:docs[0]
-            });
-            return next();
-        // Student.count({},function(error,count){
-           
-        // })
+            Student.findOne({_id:req.query.id}, function(err, docs) {
+            
+                try{
+                    if(err) {
+                        throw err;
+                        // res.end('Error');
+                        
+                    }
+                    if(docs){
+                        res.json({
+                            code:200,
+                            msg:"成功",
+                            data:docs
+                        });
+                    }else{
+                        res.json({
+                            code:408,
+                            msg:"获取失败",
+                            data:[]
+                        });
+                    }
+                }catch(e){
+                    console.log('err',e);
+                    return next();
 
-    })
+                }
+    
+
+            })
+       
+ 
 })
    module.exports = router;
