@@ -6,6 +6,28 @@ var Student = mongoose.model('Student');
 var Table = mongoose.model('Table');
 
  router.post('/addStudent', function(req, res, next) {
+     if(req.body.id){
+         let student = {
+            name: req.body.name,
+            sex:req.body.sex,
+            userBirthday:req.body.userBirthday,
+            school:req.body.school,
+            grade:req.body.grade,
+            startTime:req.body.startTime,
+            endTime:req.body.endTime,
+         }
+            Student.updateOne({ _id: req.body.id},student, function(err, docs) {
+                if(err) {
+                    console.log(21,err)
+                    res.end('Error');
+                }
+                res.json({
+                    code:200,
+                    msg:"修改成功",
+                    data:docs
+                });
+        })
+     }else{
         var student = new Student({
             openId: req.body.openId,
             name: req.body.name,
@@ -81,12 +103,14 @@ var Table = mongoose.model('Table');
             
  
         })
+     }
+ 
    })
+
    router.get('/findStudent',function(req,res,next){
         Student.find({}, function(err, docs) {
                 if(err) {
                     res.end('Error');
-                    
                 }
                 res.json({
                     code:200,
